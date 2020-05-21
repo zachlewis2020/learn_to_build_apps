@@ -13,6 +13,16 @@ class Page1 extends React.Component<RouteComponentProps> {
                         variant="contained"
                         style={{color: 'green'}}
                         onClick={() => {
+                            this.props.history.push('/');
+                        }}
+                    >
+                        Go To Home Page
+                    </Button>
+                    <p>Add Home Page Stuff Here</p>
+                    <Button
+                        variant="contained"
+                        style={{color: 'green'}}
+                        onClick={() => {
                             this.props.history.push('/page2');
                         }}
                     >
