@@ -13,9 +13,26 @@ We will cover:
 
 Demo:
 
+============================================
+Local run Pre-requisites Should be Install:
+============================================
+
+Oracle Java 13.0.2
+
+Gradle 6.4.1
+
+Node JS 14.3.0
+https://nodejs.org/dist/v14.3.0/
+
+
  To run the initial demo open a console terminal change directory to the root of this app and type:
 
- . ./build.run
+To Build Jar
+gradle 
+
+To Run Local:
+
+gradle localRun
 
 NOTE: This will build the reactjs code and compile the Java code and deploy the app on http://localhost:8080.
 

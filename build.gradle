@@ -1,11 +1,23 @@
+
 plugins {
 	id 'org.springframework.boot' version '2.2.5.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
+        id 'application'
+        id "com.github.node-gradle.node" version "2.2.4"
+
+
 }
 
+node {
+    download = true
+}
+
+defaultTasks 'clean','build'
+
+
 group = 'org.zach.learn.react'
-version = '0.0.1-SNAPSHOT'
+version = 'beta-01'
 sourceCompatibility = '13'
 
 configurations {
@@ -13,6 +25,11 @@ configurations {
 	runtimeClasspath {
 		extendsFrom developmentOnly
 	}
+}
+
+task localRun(type:Exec) {
+    workingDir './build/libs'
+    commandLine 'java','-jar','fullstackdemo-beta-01.jar'
 }
 
 repositories {
@@ -35,6 +52,32 @@ dependencies {
 	}
 	testImplementation 'org.springframework.batch:spring-batch-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+task buildNodeWeb(type:Exec) {
+    println 'Build NODE Web'
+    workingDir './web'
+    commandLine 'npm','install'
+}
+
+task removeJavaResourceStaticDir(type:Exec) {
+    println 'Build Remove Java Static'
+    workingDir '.'
+    commandLine 'rm','-r','./src/main/resources/static'
+}
+
+task replaceJavaResourceStaticWithWebBuild(type:Exec) {
+    println 'Build Replace Web'
+    workingDir './web'
+    commandLine 'cp','-r','build','../src/main/resources/static'
+}
+
+build.dependsOn (buildNodeWeb)
+
+build.doLast {
+  println 'Copy Node Web to Java Static'
+  removeJavaResourceStaticDir
+  replaceJavaResourceStaticWithWebBuild
 }
 
 test {
