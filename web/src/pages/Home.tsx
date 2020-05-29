@@ -8,7 +8,7 @@ class Home extends React.Component<RouteComponentProps> {
 
         return (
             <div className="App">
-              <h1>Home</h1>
+              <h1>Start Home</h1>
                 <Button
                     variant="contained"
                     color="secondary"

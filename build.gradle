@@ -13,10 +13,11 @@ node {
     download = true
 }
 
-defaultTasks 'clean','build'
+defaultTasks 'clean','installNodeModulesWeb','removeJavaResourceBuildDir','buildNodeWeb','replaceJavaResourceBuildDir','build'
 
 
 group = 'org.zach.learn.react'
+
 version = 'beta-01'
 sourceCompatibility = '13'
 
@@ -54,30 +55,29 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 }
 
-task buildNodeWeb(type:Exec) {
+task installNodeModulesWeb(type:Exec) {
     println 'Build NODE Web'
     workingDir './web'
     commandLine 'npm','install'
 }
 
-task removeJavaResourceStaticDir(type:Exec) {
+task buildNodeWeb(type:Exec) {
+    println 'Build NODE Web'
+    workingDir './web'
+    commandLine 'npm','run','build'
+}
+
+
+task removeJavaResourceBuildDir(type:Exec) {
     println 'Build Remove Java Static'
     workingDir '.'
-    commandLine 'rm','-r','./src/main/resources/static'
+    commandLine 'rm','-rf','./web/build','./src/main/resources/static'
 }
 
-task replaceJavaResourceStaticWithWebBuild(type:Exec) {
-    println 'Build Replace Web'
-    workingDir './web'
-    commandLine 'cp','-r','build','../src/main/resources/static'
-}
-
-build.dependsOn (buildNodeWeb)
-
-build.doLast {
-  println 'Copy Node Web to Java Static'
-  removeJavaResourceStaticDir
-  replaceJavaResourceStaticWithWebBuild
+task replaceJavaResourceBuildDir(type:Exec) {
+    println 'Build Replace Java Static with node build'
+    workingDir '.'
+    commandLine 'cp','-rf','./web/build','./src/main/resources/static'
 }
 
 test {
