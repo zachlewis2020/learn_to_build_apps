@@ -13,7 +13,7 @@ node {
     download = true
 }
 
-defaultTasks 'clean','installNodeModulesWeb','removeJavaResourceBuildDir','buildNodeWeb','replaceJavaResourceBuildDir','build','run'
+defaultTasks 'clean','installNodeModulesWeb','removeJavaResourceBuildDir','buildNodeWeb','replaceJavaResourceBuildDir','build','localRun'
 
 
 group = 'org.zach.learn.react'
@@ -74,12 +74,6 @@ task removeJavaResourceBuildDir(type:Exec) {
     println 'Build Remove Java Static'
     workingDir '.'
     commandLine 'rm','-rf','./web/build','./src/main/resources/static'
-}
-
-task runExec(type:Exec) {
-  println 'Run Demo'
-  workingDir '.'
-  commandLine 'java','-Dserver.port=8080','-jar','build/libs/fullstackdemo-beta-01.jar'
 }
 
 task replaceJavaResourceBuildDir(type:Exec) {

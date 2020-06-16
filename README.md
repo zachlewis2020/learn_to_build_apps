@@ -28,11 +28,11 @@ https://nodejs.org/dist/v14.3.0/
  To run the initial demo open a console terminal change directory to the root of this app and type:
 
 To Build Jar
-gradle 
+./gradlew 
 
 To Run Local:
 
-gradle localRun
+./gradlew localRun
 
 NOTE: This will build the reactjs code and compile the Java code and deploy the app on http://localhost:8080.
 
